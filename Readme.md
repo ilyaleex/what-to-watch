@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Илья Ли](https://up.htmlacademy.ru/react/10/user/1606793).
-* Наставник: `Неизвестно`.
+* Наставник: [Артем Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
