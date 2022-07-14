@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function FilmCard(): JSX.Element {
   return (
@@ -7,7 +8,7 @@ function FilmCard(): JSX.Element {
         <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to="/films/:id">Aviator</Link>
+        <Link className="small-film-card__link" to={AppRoute.Film}>Aviator</Link>
       </h3>
     </article>
   );

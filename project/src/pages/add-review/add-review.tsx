@@ -1,5 +1,5 @@
 import Header from '../../components/common/header/header';
-import {Link} from 'react-router-dom';
+import Breadcrumbs from '../../components/common/header/breadcrumbs';
 
 function AddReview(): JSX.Element {
   return (
@@ -11,22 +11,9 @@ function AddReview(): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header
-          breadcrumbs={
-            <nav className="breadcrumbs">
-              <ul className="breadcrumbs__list">
-                <li className="breadcrumbs__item">
-
-                  <Link to="/films/:id" className="breadcrumbs__link">The Grand Budapest Hotel</Link>
-
-                </li>
-                <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link">Add review</a>
-                </li>
-              </ul>
-            </nav>
-          }
-        />
+        <Header>
+          <Breadcrumbs />
+        </Header>
 
 
         <div className="film-card__poster film-card__poster--small">

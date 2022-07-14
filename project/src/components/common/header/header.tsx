@@ -1,12 +1,11 @@
 import {NavLink} from 'react-router-dom';
 
 type Props = {
-  breadcrumbs?: JSX.Element;
-  userPageTitle?: JSX.Element;
+  children?: JSX.Element;
   className?: string;
 }
 
-function Header({breadcrumbs, userPageTitle, className}: Props): JSX.Element {
+function Header({children, className}: Props): JSX.Element {
   return (
     <header className={`page-header ${className}`}>
       <div className="logo">
@@ -16,8 +15,7 @@ function Header({breadcrumbs, userPageTitle, className}: Props): JSX.Element {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
-      {breadcrumbs}
-      {userPageTitle}
+      {children}
       <ul className="user-block">
         <li className="user-block__item">
           <div className="user-block__avatar">

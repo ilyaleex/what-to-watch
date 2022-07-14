@@ -1,11 +1,12 @@
 import {NavLink} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function Player(): JSX.Element {
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
-      <NavLink to="/">
+      <NavLink to={AppRoute.Main}>
         <button type="button" className="player__exit">Exit</button>
       </NavLink>
 
