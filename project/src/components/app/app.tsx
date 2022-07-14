@@ -2,7 +2,7 @@ import MainPage from '../../pages/main-page/main-page';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import SignIn from '../../pages/sign-in/sign-in';
-import Watchlist from '../../pages/my-list/watchlist';
+import Watchlist from '../../pages/watchlist/watchlist';
 import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import MoviePage from '../../pages/movie-page/movie-page';
