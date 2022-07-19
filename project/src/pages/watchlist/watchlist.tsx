@@ -1,31 +1,27 @@
 import Header from '../../components/common/header/header';
 import Footer from '../../components/common/footer/footer';
-import FilmCard from '../../components/film-card/film-card';
 import UserPageTitle from '../../components/common/header/user-page-title';
+import FilmsList from '../../components/films-list/films-list';
+import {Films} from '../../types/film';
 
-function Watchlist(): JSX.Element {
+type Props = {
+  films: Films;
+}
+
+function Watchlist({films}: Props): JSX.Element {
   return (
     <div className="user-page">
 
       <Header className={'user-page__head'}>
-        <UserPageTitle/>
+        <UserPageTitle />
       </Header>
-
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
 
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
+          <FilmsList films={films} />
 
         </div>
       </section>

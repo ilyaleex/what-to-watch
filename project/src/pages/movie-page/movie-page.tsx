@@ -2,9 +2,14 @@ import Header from '../../components/common/header/header';
 import Footer from '../../components/common/footer/footer';
 import {Link} from 'react-router-dom';
 import PlayButton from '../../components/play-button/play-button';
-import FilmCard from '../../components/film-card/film-card';
+import FilmsList from '../../components/films-list/films-list';
+import {Films} from '../../types/film';
 
-function MoviePage(): JSX.Element {
+type Props = {
+  films: Films;
+}
+
+function MoviePage({films}: Props): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
@@ -102,10 +107,7 @@ function MoviePage(): JSX.Element {
 
           <div className="catalog__films-list">
 
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
+            <FilmsList films={films}/>
 
           </div>
         </section>

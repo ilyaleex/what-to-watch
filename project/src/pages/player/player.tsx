@@ -1,14 +1,13 @@
-import {NavLink} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {useNavigate} from 'react-router-dom';
 
 function Player(): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
-      <NavLink to={AppRoute.Main}>
-        <button type="button" className="player__exit">Exit</button>
-      </NavLink>
+      <button type="button" className="player__exit" onClick={() => navigate(-1)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

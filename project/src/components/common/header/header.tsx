@@ -1,4 +1,5 @@
-import {NavLink} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {AppRoute} from '../../../const';
 
 type Props = {
   children?: JSX.Element;
@@ -6,6 +7,8 @@ type Props = {
 }
 
 function Header({children, className}: Props): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <header className={`page-header ${className}`}>
       <div className="logo">
@@ -19,9 +22,7 @@ function Header({children, className}: Props): JSX.Element {
       <ul className="user-block">
         <li className="user-block__item">
           <div className="user-block__avatar">
-            <NavLink to='/myList'>
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </NavLink>
+            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" onClick={() => navigate(AppRoute.MyList)}/>
           </div>
         </li>
         <li className="user-block__item">
