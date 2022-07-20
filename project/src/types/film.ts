@@ -33,7 +33,7 @@
 export type Film = {
   id: number,
   name: string,
-  previewImage: string,
+  previewImage?: string,
   previewVideoLink?: string,
   backgroundImage?: string,
   backgroundColor?: string,

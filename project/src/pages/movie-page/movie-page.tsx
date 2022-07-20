@@ -3,19 +3,23 @@ import Footer from '../../components/common/footer/footer';
 import {Link} from 'react-router-dom';
 import PlayButton from '../../components/play-button/play-button';
 import FilmsList from '../../components/films-list/films-list';
-import {Films} from '../../types/film';
+import {Film, Films} from '../../types/film';
+import FilmCardDescription from '../../components/film-card-description/film-card-description';
 
 type Props = {
   films: Films;
+  filmHeader: Film,
 }
 
-function MoviePage({films}: Props): JSX.Element {
+function MoviePage({filmHeader, films}: Props): JSX.Element {
+  const {id, name, genre, backgroundImage, posterImage, released} = filmHeader;
+
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={backgroundImage} alt={name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -24,11 +28,12 @@ function MoviePage({films}: Props): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
-              </p>
+              <FilmCardDescription id={id} name={name} genre={genre} released={released} />
+              {/*<h2 className="film-card__title">{name}</h2>*/}
+              {/*<p className="film-card__meta">*/}
+              {/*  <span className="film-card__genre">{genre}</span>*/}
+              {/*  <span className="film-card__year">{released}</span>*/}
+              {/*</p>*/}
 
               <div className="film-card__buttons">
 
@@ -52,9 +57,7 @@ function MoviePage({films}: Props): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                height="327"
-              />
+              <img src={posterImage} alt={`${name} poster`} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">

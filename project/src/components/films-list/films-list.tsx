@@ -6,7 +6,6 @@ type FilmsListProps = {
 }
 
 function FilmsList({films}: FilmsListProps): JSX.Element {
-
   return (
     <>
       {films.map((film) =>
