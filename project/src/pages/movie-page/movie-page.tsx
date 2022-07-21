@@ -1,25 +1,21 @@
 import Header from '../../components/common/header/header';
 import Footer from '../../components/common/footer/footer';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import PlayButton from '../../components/play-button/play-button';
 import FilmsList from '../../components/films-list/films-list';
-import {Film, Films} from '../../types/film';
-import FilmCardDescription from '../../components/film-card-description/film-card-description';
+import {FilmsListProps} from '../../types/film';
+import {getFilm} from '../../utils/common';
 
-type Props = {
-  films: Films;
-  filmHeader: Film,
-}
-
-function MoviePage({filmHeader, films}: Props): JSX.Element {
-  const {id, name, genre, backgroundImage, posterImage, released} = filmHeader;
+function MoviePage({films}: FilmsListProps): JSX.Element {
+  const params = useParams();
+  const film = getFilm(params.id as string);
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={backgroundImage} alt={name}/>
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -28,16 +24,17 @@ function MoviePage({filmHeader, films}: Props): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <FilmCardDescription id={id} name={name} genre={genre} released={released} />
-              {/*<h2 className="film-card__title">{name}</h2>*/}
-              {/*<p className="film-card__meta">*/}
-              {/*  <span className="film-card__genre">{genre}</span>*/}
-              {/*  <span className="film-card__year">{released}</span>*/}
-              {/*</p>*/}
+
+
+              <h2 className="film-card__title">{film.name}</h2>
+              <p className="film-card__meta">
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
+              </p>
 
               <div className="film-card__buttons">
 
-                <PlayButton />
+                <PlayButton id={film.id} />
 
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
@@ -57,7 +54,7 @@ function MoviePage({filmHeader, films}: Props): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={posterImage} alt={`${name} poster`} width="218" height="327"/>
+              <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">

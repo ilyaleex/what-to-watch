@@ -8,20 +8,17 @@ import Player from '../../pages/player/player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {Films, Film} from '../../types/film';
+import {Film} from '../../types/film';
 
 type MainPageFilmCardProps = {
-  promoFilm: Film;
-  filmHeader: Film;
-  films: Films;
-  film: Film;
+  films: Film[];
 }
 
-function App({promoFilm, filmHeader, films, film}: MainPageFilmCardProps): JSX.Element {
+function App({films}: MainPageFilmCardProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage promoFilm={promoFilm} films={films} />}/>
+        <Route path={AppRoute.Main} element={<MainPage films={films} />}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
@@ -32,11 +29,11 @@ function App({promoFilm, filmHeader, films, film}: MainPageFilmCardProps): JSX.E
         <Route path={AppRoute.Films}>
           <Route index element={<NotFound />}/>
           <Route path={AppRoute.FilmId}>
-            <Route index element={<MoviePage filmHeader={filmHeader} films={films} />}/>
-            <Route path={AppRoute.AddReview} element={<AddReview film={film}/>}/>
+            <Route index element={<MoviePage films={films} />}/>
+            <Route path={AppRoute.AddReview} element={<AddReview />}/>
           </Route>
         </Route>
-        <Route path={AppRoute.Player} element={<Player film={film} />}/>
+        <Route path={AppRoute.Player} element={<Player />}/>
         <Route path="*" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>

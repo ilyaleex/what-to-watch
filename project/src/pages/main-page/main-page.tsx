@@ -2,16 +2,11 @@ import Footer from '../../components/common/footer/footer';
 import Header from '../../components/common/header/header';
 import PlayButton from '../../components/play-button/play-button';
 import FilmsList from '../../components/films-list/films-list';
-import {Films, Film} from '../../types/film';
-import FilmCardDescription from '../../components/film-card-description/film-card-description';
+import {FilmsListProps} from '../../types/film';
 
-type MainPageProps = {
-  promoFilm: Film;
-  films: Films;
-}
 
-function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
-  const {id, name, genre, backgroundImage, posterImage, released} = promoFilm;
+function MainPage({films}: FilmsListProps): JSX.Element {
+  const {id, name, genre, released, backgroundImage, posterImage} = films[0];
 
   return (
     <>
@@ -32,11 +27,15 @@ function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
 
             <div className="film-card__desc">
 
-              <FilmCardDescription id={id} name={name} genre={genre} released={released} />
+              <h2 className="film-card__title">{name}</h2>
+              <p className="film-card__meta">
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
+              </p>
 
               <div className="film-card__buttons">
 
-                <PlayButton />
+                <PlayButton id={id}/>
 
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">

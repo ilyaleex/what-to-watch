@@ -1,15 +1,20 @@
 import FilmCard from '../film-card/film-card';
-import {Films} from '../../types/film';
+import {Film} from '../../types/film';
 
 type FilmsListProps = {
-  films: Films
+  films: Film[];
 }
 
 function FilmsList({films}: FilmsListProps): JSX.Element {
   return (
     <>
       {films.map((film) =>
-        <FilmCard key={film.id} name={film.name} previewImage={film.previewImage} id={film.id}/>
+        (
+          <FilmCard
+            key={film.id}
+            film={film}
+          />
+        )
       )}
     </>
   );

@@ -2,13 +2,9 @@ import Header from '../../components/common/header/header';
 import Footer from '../../components/common/footer/footer';
 import UserPageTitle from '../../components/common/header/user-page-title';
 import FilmsList from '../../components/films-list/films-list';
-import {Films} from '../../types/film';
+import {FilmsListProps} from '../../types/film';
 
-type Props = {
-  films: Films;
-}
-
-function Watchlist({films}: Props): JSX.Element {
+function Watchlist({films}: FilmsListProps): JSX.Element {
   return (
     <div className="user-page">
 

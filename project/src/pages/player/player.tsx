@@ -1,13 +1,12 @@
-import {useNavigate} from 'react-router-dom';
-import {Film} from '../../types/film';
+import {useNavigate, useParams} from 'react-router-dom';
+import {getFilm} from '../../utils/common';
 
-type Props = {
-  film: Film;
-}
-
-function Player({film}: Props): JSX.Element {
-  const {posterImage} = film;
+function Player(): JSX.Element {
   const navigate = useNavigate();
+
+  const params = useParams();
+  const film = getFilm(params.id as string);
+  const {posterImage} = film;
 
   return (
     <div className="player">
