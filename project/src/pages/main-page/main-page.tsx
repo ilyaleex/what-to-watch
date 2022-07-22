@@ -1,20 +1,18 @@
-import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/common/footer/footer';
 import Header from '../../components/common/header/header';
 import PlayButton from '../../components/play-button/play-button';
+import FilmsList from '../../components/films-list/films-list';
+import {FilmsListProps} from '../../types/film';
 
-type MainPageFilmCardProps = {
-  name: string;
-  genre: string;
-  releaseDate: number;
-}
 
-function MainPage({name, genre, releaseDate}: MainPageFilmCardProps): JSX.Element {
+function MainPage({films}: FilmsListProps): JSX.Element {
+  const {id, name, genre, released, backgroundImage, posterImage} = films[0];
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={backgroundImage} alt={name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -24,19 +22,20 @@ function MainPage({name, genre, releaseDate}: MainPageFilmCardProps): JSX.Elemen
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${name} poster`} width="218" height="327"/>
+              <img src={posterImage} alt={`${name} poster`} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
+
               <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
 
-                <PlayButton />
+                <PlayButton id={id}/>
 
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
@@ -89,30 +88,7 @@ function MainPage({name, genre, releaseDate}: MainPageFilmCardProps): JSX.Elemen
 
           <div className="catalog__films-list">
 
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
+            <FilmsList films={films} />
 
           </div>
           <div className="catalog__more">

@@ -1,16 +1,21 @@
 import Header from '../../components/common/header/header';
 import Footer from '../../components/common/footer/footer';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import PlayButton from '../../components/play-button/play-button';
-import FilmCard from '../../components/film-card/film-card';
+import FilmsList from '../../components/films-list/films-list';
+import {FilmsListProps} from '../../types/film';
+import {getFilm} from '../../utils/common';
 
-function MoviePage(): JSX.Element {
+function MoviePage({films}: FilmsListProps): JSX.Element {
+  const params = useParams();
+  const film = getFilm(params.id as string);
+
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -19,15 +24,17 @@ function MoviePage(): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+
+
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
 
-                <PlayButton />
+                <PlayButton id={film.id} />
 
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
@@ -47,9 +54,7 @@ function MoviePage(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                height="327"
-              />
+              <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
@@ -102,10 +107,7 @@ function MoviePage(): JSX.Element {
 
           <div className="catalog__films-list">
 
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
+            <FilmsList films={films}/>
 
           </div>
         </section>

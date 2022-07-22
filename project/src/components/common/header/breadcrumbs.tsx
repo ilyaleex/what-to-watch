@@ -1,13 +1,14 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../../const';
+import {FilmCardProps} from '../../../types/film';
 
-function Breadcrumbs(): JSX.Element {
+function Breadcrumbs({film}: FilmCardProps): JSX.Element {
+
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
 
-          <Link to={AppRoute.Film} className="breadcrumbs__link">The Grand Budapest Hotel</Link>
+          <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
 
         </li>
         <li className="breadcrumbs__item">
