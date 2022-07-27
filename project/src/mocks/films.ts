@@ -183,7 +183,7 @@ export const films: Film[] = [
     'id': 8,
     'isFavorite': false,
     'videoLink': 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
-    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4'
+    'previewVideoLink': 'https://10.react.pages.academy/static/film/video/dog.mp4',
   },
 ];
 

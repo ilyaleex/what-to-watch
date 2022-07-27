@@ -11,7 +11,7 @@ import PrivateRoute from '../private-route/private-route';
 import {Film} from '../../types/film';
 
 type MainPageFilmCardProps = {
-  films: Film[];
+  films: Film[]
 }
 
 function App({films}: MainPageFilmCardProps): JSX.Element {
@@ -28,10 +28,8 @@ function App({films}: MainPageFilmCardProps): JSX.Element {
         />
         <Route path={AppRoute.Films}>
           <Route index element={<NotFound />}/>
-          <Route path={AppRoute.FilmId}>
-            <Route index element={<MoviePage films={films} />}/>
-            <Route path={AppRoute.AddReview} element={<AddReview />}/>
-          </Route>
+          <Route path={AppRoute.FilmId} element={<MoviePage films={films} />}/>
+          <Route path={AppRoute.AddReview} element={<AddReview />}/>
         </Route>
         <Route path={AppRoute.Player} element={<Player />}/>
         <Route path="*" element={<NotFound />}/>
