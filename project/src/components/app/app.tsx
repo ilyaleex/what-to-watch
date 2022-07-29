@@ -19,6 +19,7 @@ function App({films}: MainPageFilmCardProps): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage films={films}/>}/>
+        <Route path={AppRoute.Genre} element={<MainPage films={films}/>}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
