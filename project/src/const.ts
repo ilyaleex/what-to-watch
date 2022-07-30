@@ -13,3 +13,5 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
 }
+
+export const FILMS_COUNT_PER_STEP = 8;

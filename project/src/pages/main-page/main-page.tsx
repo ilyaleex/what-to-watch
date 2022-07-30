@@ -6,19 +6,23 @@ import {useAppSelector} from '../../hooks';
 import {selectFilterFilms} from '../../store/select';
 import {useDispatch} from 'react-redux';
 import GenreMenu from '../../components/genre-menu/genre-menu';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {getFilmsList} from '../../store/action';
-import {FilmsListProps} from '../../types/film';
+import {Film, FilmsListProps} from '../../types/film';
+import ButtonShowMore from '../../components/button-show-more/button-show-more';
+import {FILMS_COUNT_PER_STEP} from '../../const';
 
 function MainPage({films}: FilmsListProps): JSX.Element {
   const {id, name, genre, released, backgroundImage, posterImage} = films[0];
-
   const dispatch = useDispatch();
-  const genreFilms = useAppSelector(selectFilterFilms);
+  const [showCount, setShowCount] = useState(FILMS_COUNT_PER_STEP);
+  const filteredFilms = useAppSelector(selectFilterFilms);
 
   useEffect(() => {
     dispatch(getFilmsList());
   },[dispatch]);
+
+  const getFilms = (filmss: Film[]) => filmss.slice(0, FILMS_COUNT_PER_STEP);
 
   return (
     <>
@@ -69,11 +73,17 @@ function MainPage({films}: FilmsListProps): JSX.Element {
 
           <div className="catalog__films-list">
 
-            <FilmsList films={genreFilms} />
+            <FilmsList films={getFilms(filteredFilms)} />
 
           </div>
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {
+              filteredFilms.length > showCount &&
+              <ButtonShowMore
+                showCount={showCount}
+                changeShowCount={setShowCount}
+              />
+            }
           </div>
         </section>
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const STARS_AMOUNT = 10;
 
 function ReviewForm(): JSX.Element {
-  const [text, setText] = React.useState('');
+  const [text, setText] = useState('');
 
   return (
     <form action="#" className="add-review__form">
