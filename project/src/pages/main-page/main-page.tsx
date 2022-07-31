@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import GenreMenu from '../../components/genre-menu/genre-menu';
 import {useEffect, useState} from 'react';
 import {getFilmsList} from '../../store/action';
-import {Film, FilmsListProps} from '../../types/film';
+import {FilmsListProps} from '../../types/film';
 import ButtonShowMore from '../../components/button-show-more/button-show-more';
 import {FILMS_COUNT_PER_STEP} from '../../const';
 
@@ -21,8 +21,6 @@ function MainPage({films}: FilmsListProps): JSX.Element {
   useEffect(() => {
     dispatch(getFilmsList());
   },[dispatch]);
-
-  const getFilms = (filmss: Film[]) => filmss.slice(0, FILMS_COUNT_PER_STEP);
 
   return (
     <>
@@ -73,7 +71,7 @@ function MainPage({films}: FilmsListProps): JSX.Element {
 
           <div className="catalog__films-list">
 
-            <FilmsList films={getFilms(filteredFilms)} />
+            <FilmsList films={filteredFilms.slice(0, FILMS_COUNT_PER_STEP)} />
 
           </div>
           <div className="catalog__more">

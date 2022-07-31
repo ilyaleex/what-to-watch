@@ -4,6 +4,7 @@ import {changeGenre} from '../../store/action';
 import {Link, useParams} from 'react-router-dom';
 import {selectFilmGenres} from '../../store/select';
 import {AppRoute} from '../../const';
+import classNames from 'classnames';
 
 const GENRES_COUNT = 9;
 
@@ -19,7 +20,11 @@ function GenreMenu(): JSX.Element {
   return (
     <ul className="catalog__genres-list">
       <li
-        className={`catalog__genres-item ${'catalog__genres-item--active' !== genreName}`}
+        className={
+          classNames(
+            'catalog__genres-item',
+            {'catalog__genres-item--active': !genreName})
+        }
       >
         <Link
           to={AppRoute.Main}
@@ -32,7 +37,10 @@ function GenreMenu(): JSX.Element {
         genres.map((genre) => (
           <li
             key={genre}
-            className={`catalog__genres-item ${genreName === genre.toLowerCase() ? 'catalog__genres-item--active' : ''}`}
+            className={
+              classNames('catalog__genres-item',
+                {'catalog__genres-item--active': genreName === genre.toLowerCase()})
+            }
           >
             <Link
               to={`/genre/${genre.toLowerCase()}`}
