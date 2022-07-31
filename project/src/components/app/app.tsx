@@ -11,24 +11,25 @@ import PrivateRoute from '../private-route/private-route';
 import {Film} from '../../types/film';
 
 type MainPageFilmCardProps = {
-  films: Film[]
+ films: Film[]
 }
 
 function App({films}: MainPageFilmCardProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage films={films} />}/>
+        <Route path={AppRoute.Main} element={<MainPage films={films}/>}/>
+        <Route path={AppRoute.Genre} element={<MainPage films={films}/>}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <Watchlist films={films} />
+            <Watchlist />
           </PrivateRoute>
         }
         />
         <Route path={AppRoute.Films}>
           <Route index element={<NotFound />}/>
-          <Route path={AppRoute.FilmId} element={<MoviePage films={films} />}/>
+          <Route path={AppRoute.FilmId} element={<MoviePage />}/>
           <Route path={AppRoute.AddReview} element={<AddReview />}/>
         </Route>
         <Route path={AppRoute.Player} element={<Player />}/>

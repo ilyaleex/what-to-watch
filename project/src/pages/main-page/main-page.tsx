@@ -2,11 +2,25 @@ import Footer from '../../components/common/footer/footer';
 import Header from '../../components/common/header/header';
 import PlayButton from '../../components/play-button/play-button';
 import FilmsList from '../../components/films-list/films-list';
+import {useAppSelector} from '../../hooks';
+import {selectFilterFilms} from '../../store/select';
+import {useDispatch} from 'react-redux';
+import GenreMenu from '../../components/genre-menu/genre-menu';
+import {useEffect, useState} from 'react';
+import {getFilmsList} from '../../store/action';
 import {FilmsListProps} from '../../types/film';
-
+import ButtonShowMore from '../../components/button-show-more/button-show-more';
+import {FILMS_COUNT_PER_STEP} from '../../const';
 
 function MainPage({films}: FilmsListProps): JSX.Element {
   const {id, name, genre, released, backgroundImage, posterImage} = films[0];
+  const dispatch = useDispatch();
+  const [showCount, setShowCount] = useState(FILMS_COUNT_PER_STEP);
+  const filteredFilms = useAppSelector(selectFilterFilms);
+
+  useEffect(() => {
+    dispatch(getFilmsList());
+  },[dispatch]);
 
   return (
     <>
@@ -53,46 +67,21 @@ function MainPage({films}: FilmsListProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="src/pages/main-page/main-page#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreMenu />
 
           <div className="catalog__films-list">
 
-            <FilmsList films={films} />
+            <FilmsList films={filteredFilms.slice(0, FILMS_COUNT_PER_STEP)} />
 
           </div>
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {
+              filteredFilms.length > showCount &&
+              <ButtonShowMore
+                showCount={showCount}
+                changeShowCount={setShowCount}
+              />
+            }
           </div>
         </section>
 

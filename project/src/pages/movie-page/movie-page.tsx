@@ -3,16 +3,28 @@ import Footer from '../../components/common/footer/footer';
 import {Link, Route, Routes, useParams} from 'react-router-dom';
 import PlayButton from '../../components/play-button/play-button';
 import FilmsList from '../../components/films-list/films-list';
-import {FilmsListProps} from '../../types/film';
 import {getFilm} from '../../utils/common';
 import Overview from '../../components/tabs/overview';
 import Details from '../../components/tabs/details';
 import Reviews from '../../components/tabs/reviews';
 import {comments} from '../../mocks/comments';
+import {useAppSelector} from '../../hooks';
+import {selectFilms} from '../../store/select';
+import {useDispatch} from 'react-redux';
+import {useEffect} from 'react';
+import {getFilmsList} from '../../store/action';
 
-function MoviePage({films}: FilmsListProps): JSX.Element {
+const FILMS_COUNT = 4;
+
+function MoviePage(): JSX.Element {
+  const dispatch = useDispatch();
+  const similarFilms = useAppSelector(selectFilms).slice(0, FILMS_COUNT);
   const params = useParams();
   const film = getFilm(params.id as string);
+
+  useEffect(() => {
+    dispatch(getFilmsList());
+  },[dispatch]);
 
   return (
     <>
@@ -94,7 +106,7 @@ function MoviePage({films}: FilmsListProps): JSX.Element {
 
           <div className="catalog__films-list">
 
-            <FilmsList films={films}/>
+            <FilmsList films={similarFilms}/>
 
           </div>
         </section>

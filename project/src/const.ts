@@ -1,5 +1,6 @@
 export enum AppRoute {
   Main = '/',
+  Genre = '/genre/:genre',
   SignIn = '/login',
   MyList = '/mylist',
   Films = '/films',
@@ -12,3 +13,5 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
 }
+
+export const FILMS_COUNT_PER_STEP = 8;
