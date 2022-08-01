@@ -8,18 +8,23 @@ import Player from '../../pages/player/player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/film';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type MainPageFilmCardProps = {
- films: Film[]
-}
+function App(): JSX.Element {
+  const {isDataLoaded} = useAppSelector((state) => state);
 
-function App({films}: MainPageFilmCardProps): JSX.Element {
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage films={films}/>}/>
-        <Route path={AppRoute.Genre} element={<MainPage films={films}/>}/>
+        <Route path={AppRoute.Main} element={<MainPage />}/>
+        <Route path={AppRoute.Genre} element={<MainPage />}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>

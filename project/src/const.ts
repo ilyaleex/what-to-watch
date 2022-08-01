@@ -12,6 +12,14 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Promo = '/promo',
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const FILMS_COUNT_PER_STEP = 8;

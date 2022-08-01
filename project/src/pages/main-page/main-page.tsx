@@ -4,23 +4,16 @@ import PlayButton from '../../components/play-button/play-button';
 import FilmsList from '../../components/films-list/films-list';
 import {useAppSelector} from '../../hooks';
 import {selectFilterFilms} from '../../store/select';
-import {useDispatch} from 'react-redux';
 import GenreMenu from '../../components/genre-menu/genre-menu';
-import {useEffect, useState} from 'react';
-import {getFilmsList} from '../../store/action';
-import {FilmsListProps} from '../../types/film';
+import {useState} from 'react';
 import ButtonShowMore from '../../components/button-show-more/button-show-more';
 import {FILMS_COUNT_PER_STEP} from '../../const';
 
-function MainPage({films}: FilmsListProps): JSX.Element {
-  const {id, name, genre, released, backgroundImage, posterImage} = films[0];
-  const dispatch = useDispatch();
+function MainPage(): JSX.Element {
+  const promo = useAppSelector((state)=> state.promo);
+  const {id, name, genre, released, backgroundImage, posterImage} = promo;
   const [showCount, setShowCount] = useState(FILMS_COUNT_PER_STEP);
   const filteredFilms = useAppSelector(selectFilterFilms);
-
-  useEffect(() => {
-    dispatch(getFilmsList());
-  },[dispatch]);
 
   return (
     <>

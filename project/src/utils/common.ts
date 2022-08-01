@@ -1,5 +1,5 @@
-import {films} from '../mocks/films';
 import {Film} from '../types/film';
+import {films} from '../mocks/films';
 
 const MINUTES_IN_HOUR = 60;
 

@@ -2,14 +2,14 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import {changeGenre} from '../../store/action';
 import {Link, useParams} from 'react-router-dom';
-import {selectFilmGenres} from '../../store/select';
 import {AppRoute} from '../../const';
 import classNames from 'classnames';
+import {getGenres} from '../../utils/common';
 
 const GENRES_COUNT = 9;
 
 function GenreMenu(): JSX.Element {
-  const genres = useAppSelector(selectFilmGenres);
+  const genres = useAppSelector((state) => getGenres(state.filmsList));
   const {genreName} = useParams();
   const dispatch = useAppDispatch();
 
