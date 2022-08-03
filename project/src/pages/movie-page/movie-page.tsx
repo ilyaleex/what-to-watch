@@ -7,28 +7,20 @@ import {getFilm} from '../../utils/common';
 import Overview from '../../components/tabs/overview';
 import Details from '../../components/tabs/details';
 import Reviews from '../../components/tabs/reviews';
-import {comments} from '../../mocks/comments';
 import {useAppSelector} from '../../hooks';
-import {selectFilms} from '../../store/select';
-import {useDispatch} from 'react-redux';
-import {useEffect} from 'react';
-import {getFilmsList} from '../../store/action';
+import {AuthorizationStatus} from '../../const';
 
 const FILMS_COUNT = 4;
 
 function MoviePage(): JSX.Element {
-  const dispatch = useDispatch();
-  const similarFilms = useAppSelector(selectFilms).slice(0, FILMS_COUNT);
-  const params = useParams();
-  const film = getFilm(params.id as string);
-
-  useEffect(() => {
-    dispatch(getFilmsList());
-  },[dispatch]);
+  const similarFilms = useAppSelector((state) => state.filmsList).slice(0, FILMS_COUNT);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {id} = useParams();
+  const film = getFilm(id);
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{background: `${film.backgroundColor}`}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name}/>
@@ -59,8 +51,11 @@ function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-
-                <Link to="review" className="btn film-card__button">Add review</Link>
+                {
+                  authorizationStatus === AuthorizationStatus.Auth ?
+                    <Link to="review" className="btn film-card__button">Add review</Link>
+                    : null
+                }
 
               </div>
             </div>
@@ -92,7 +87,7 @@ function MoviePage(): JSX.Element {
                 <Route>
                   <Route index element={<Overview film={film}/>}/>
                   <Route path="details" element={<Details film={film}/>}/>
-                  <Route path="reviews" element={<Reviews comments={comments}/>}/>
+                  <Route path="reviews" element={<Reviews key={id} comments={comments}/>}/>
                 </Route>
               </Routes>
 

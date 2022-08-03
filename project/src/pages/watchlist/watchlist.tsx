@@ -3,10 +3,9 @@ import Footer from '../../components/common/footer/footer';
 import UserPageTitle from '../../components/common/header/user-page-title';
 import FilmsList from '../../components/films-list/films-list';
 import {useAppSelector} from '../../hooks';
-import {selectFilms} from '../../store/select';
 
 function Watchlist(): JSX.Element {
-  const films = useAppSelector(selectFilms);
+  const films = useAppSelector((state) => state.filmsList);
 
   return (
     <div className="user-page">

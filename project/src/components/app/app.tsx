@@ -1,6 +1,6 @@
 import MainPage from '../../pages/main-page/main-page';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {Route, Routes} from 'react-router-dom';
+import {AppRoute} from '../../const';
 import SignIn from '../../pages/sign-in/sign-in';
 import Watchlist from '../../pages/watchlist/watchlist';
 import AddReview from '../../pages/add-review/add-review';
@@ -8,21 +8,29 @@ import Player from '../../pages/player/player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/film';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {isCheckedAuth} from '../../utils/common';
+import HistoryRoute from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
-type MainPageFilmCardProps = {
- films: Film[]
-}
+function App(): JSX.Element {
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
-function App({films}: MainPageFilmCardProps): JSX.Element {
+  if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <HistoryRoute history={browserHistory}>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage films={films}/>}/>
-        <Route path={AppRoute.Genre} element={<MainPage films={films}/>}/>
+        <Route path={AppRoute.Main} element={<MainPage />}/>
+        <Route path={AppRoute.Genre} element={<MainPage />}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+          <PrivateRoute authorizationStatus={authorizationStatus}>
             <Watchlist />
           </PrivateRoute>
         }
@@ -35,7 +43,7 @@ function App({films}: MainPageFilmCardProps): JSX.Element {
         <Route path={AppRoute.Player} element={<Player />}/>
         <Route path="*" element={<NotFound />}/>
       </Routes>
-    </BrowserRouter>
+    </HistoryRoute>
   );
 }
 

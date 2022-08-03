@@ -12,7 +12,7 @@ function Breadcrumbs({film}: FilmCardProps): JSX.Element {
 
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
+          <Link to="#" className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>

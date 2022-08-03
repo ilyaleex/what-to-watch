@@ -24,7 +24,7 @@ function ReviewForm(): JSX.Element {
 
       </div>
 
-      <div className="add-review__text">
+      <div className="add-review__text" style={{background: '#ffff'}}>
 
         <textarea className="add-review__textarea" name="review-text" id="review-text"
           placeholder="Review text" onChange={(e) => setText(e.target.value)} value={text}
