@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {getFilm} from '../../utils/common';
 
 const STARS_AMOUNT = 10;
 
