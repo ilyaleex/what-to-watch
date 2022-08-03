@@ -10,7 +10,7 @@ import ButtonShowMore from '../../components/button-show-more/button-show-more';
 import {FILMS_COUNT_PER_STEP} from '../../const';
 
 function MainPage(): JSX.Element {
-  const promo = useAppSelector((state)=> state.promo);
+  const promo = useAppSelector((state) => state.promo);
   const {id, name, genre, released, backgroundImage, posterImage} = promo;
   const [showCount, setShowCount] = useState(FILMS_COUNT_PER_STEP);
   const filteredFilms = useAppSelector(selectFilterFilms);

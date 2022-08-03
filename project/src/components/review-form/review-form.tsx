@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {getFilm} from '../../utils/common';
 
 const STARS_AMOUNT = 10;
 
@@ -24,7 +26,7 @@ function ReviewForm(): JSX.Element {
 
       </div>
 
-      <div className="add-review__text">
+      <div className="add-review__text" style={{background: '#ffff'}}>
 
         <textarea className="add-review__textarea" name="review-text" id="review-text"
           placeholder="Review text" onChange={(e) => setText(e.target.value)} value={text}

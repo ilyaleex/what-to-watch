@@ -14,12 +14,12 @@ const FILMS_COUNT = 4;
 
 function MoviePage(): JSX.Element {
   const similarFilms = useAppSelector((state) => state.filmsList).slice(0, FILMS_COUNT);
-  const params = useParams();
-  const film = getFilm(params.id as string);
+  const {id} = useParams();
+  const film = getFilm(id);
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{background: `${film.backgroundColor}`}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name}/>

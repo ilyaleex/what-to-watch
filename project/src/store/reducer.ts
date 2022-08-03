@@ -9,8 +9,9 @@ type InitialState = {
   genre: string
   filmsList: Film[]
   promo: Film
-  authorizationStatus: string
+  authorizationStatus: AuthorizationStatus
   isDataLoaded: boolean
+  error: string | null
 };
 
 const initialState: InitialState = {
@@ -19,6 +20,7 @@ const initialState: InitialState = {
   promo: {} as Film,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {

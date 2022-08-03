@@ -5,11 +5,11 @@ import {useParams} from 'react-router-dom';
 import {getFilm} from '../../utils/common';
 
 function AddReview(): JSX.Element {
-  const params = useParams();
-  const film = getFilm(params.id as string);
+  const {id} = useParams();
+  const film = getFilm(id);
 
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{background: `${film.backgroundColor}`}}>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img src={film.backgroundImage} alt={film.name}/>

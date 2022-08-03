@@ -18,10 +18,6 @@ export type Film = {
   starring: string[]
 }
 
-export type FilmsListProps = {
-  films: Film[]
-}
-
 export type FilmCardProps = {
   film: Film
 }
