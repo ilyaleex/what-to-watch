@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {
+  loadComments,
   loadFilms,
   loadPromo,
   redirectToRoute,
@@ -15,6 +16,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {Film} from '../types/film';
 import {store} from '../store';
+import {Comment} from '../types/comment';
 
 const SHOW_ERROR_TIMEOUT = 2000;
 
@@ -38,6 +40,20 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Film[]>(APIRoute.Films);
     dispatch(setDataLoadedStatus(true));
     dispatch(loadFilms(data));
+    dispatch(setDataLoadedStatus(false));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFilms',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(APIRoute.Comments);
+    dispatch(setDataLoadedStatus(true));
+    dispatch(loadComments(data));
     dispatch(setDataLoadedStatus(false));
   },
 );

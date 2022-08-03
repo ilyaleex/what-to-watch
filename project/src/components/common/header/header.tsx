@@ -27,7 +27,6 @@ function Header({children, className}: Props): JSX.Element {
         authorizationStatus === AuthorizationStatus.Auth ?
           (
             <ul className="user-block">
-
               <li className="user-block__item">
                 <div className="user-block__avatar">
                   <img

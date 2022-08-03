@@ -8,12 +8,13 @@ import Overview from '../../components/tabs/overview';
 import Details from '../../components/tabs/details';
 import Reviews from '../../components/tabs/reviews';
 import {useAppSelector} from '../../hooks';
-import {comments} from '../../mocks/comments';
+import {AuthorizationStatus} from '../../const';
 
 const FILMS_COUNT = 4;
 
 function MoviePage(): JSX.Element {
   const similarFilms = useAppSelector((state) => state.filmsList).slice(0, FILMS_COUNT);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const {id} = useParams();
   const film = getFilm(id);
 
@@ -50,8 +51,11 @@ function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-
-                <Link to="review" className="btn film-card__button">Add review</Link>
+                {
+                  authorizationStatus === AuthorizationStatus.Auth ?
+                    <Link to="review" className="btn film-card__button">Add review</Link>
+                    : null
+                }
 
               </div>
             </div>
@@ -83,7 +87,7 @@ function MoviePage(): JSX.Element {
                 <Route>
                   <Route index element={<Overview film={film}/>}/>
                   <Route path="details" element={<Details film={film}/>}/>
-                  <Route path="reviews" element={<Reviews comments={comments}/>}/>
+                  <Route path="reviews" element={<Reviews key={id} comments={comments}/>}/>
                 </Route>
               </Routes>
 
