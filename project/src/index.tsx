@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {checkAuthAction, fetchCommentsAction, fetchFilmsAction, fetchPromoAction} from './services/api-action';
-import ErrorMessage from './components/error-message/error-message';
+import {checkAuthAction, fetchFilmsAction, fetchPromoAction} from './services/api-action';
 
 store.dispatch(fetchFilmsAction());
-store.dispatch(fetchCommentsAction());
 store.dispatch(fetchPromoAction());
 store.dispatch(checkAuthAction());
 
@@ -19,7 +17,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-      <ErrorMessage />
     </Provider>
   </React.StrictMode>,
 );

@@ -1,5 +1,4 @@
 import {Film} from '../types/film';
-import {films} from '../mocks/films';
 import {AuthorizationStatus} from '../const';
 
 const MINUTES_IN_HOUR = 60;
@@ -10,8 +9,6 @@ export const humanizeRuntime = (runtime: number) => {
 
   return `${hours}h ${minutes}m`;
 };
-
-export const getFilm = (id: string | undefined) => films.find((item) => item.id === Number(id)) as Film;
 
 export const getGenres = (filmsList: Film[]): string[] => [...new Set(filmsList.map((film) => film.genre))];
 

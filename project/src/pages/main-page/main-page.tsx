@@ -1,19 +1,22 @@
-import Footer from '../../components/common/footer/footer';
-import Header from '../../components/common/header/header';
-import PlayButton from '../../components/play-button/play-button';
-import FilmsList from '../../components/films-list/films-list';
+import Footer from '../../components/ui/common/footer/footer';
+import Header from '../../components/ui/common/header/header';
+import PlayButton from '../../components/ui/play-button/play-button';
+import FilmsList from '../../components/ui/films-list/films-list';
 import {useAppSelector} from '../../hooks';
-import {selectFilterFilms} from '../../store/select';
-import GenreMenu from '../../components/genre-menu/genre-menu';
+import GenreMenu from '../../components/ui/genre-menu/genre-menu';
 import {useState} from 'react';
-import ButtonShowMore from '../../components/button-show-more/button-show-more';
+import ButtonShowMore from '../../components/ui/button-show-more/button-show-more';
 import {FILMS_COUNT_PER_STEP} from '../../const';
+import {selectFilterFilms} from '../../store/films-slice/selectors';
+import {getPromo} from '../../store/promo-slice/selectors';
+import {Film} from '../../types/film';
 
 function MainPage(): JSX.Element {
-  const promo = useAppSelector((state) => state.promo);
+  const promo = useAppSelector(getPromo);
   const {id, name, genre, released, backgroundImage, posterImage} = promo;
   const [showCount, setShowCount] = useState(FILMS_COUNT_PER_STEP);
   const filteredFilms = useAppSelector(selectFilterFilms);
+  const getFilmsList = (films: Film[]) => films.slice(0, showCount);
 
   return (
     <>
@@ -60,11 +63,11 @@ function MainPage(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreMenu />
+          <GenreMenu changeShowCount={setShowCount}/>
 
           <div className="catalog__films-list">
 
-            <FilmsList films={filteredFilms.slice(0, FILMS_COUNT_PER_STEP)} />
+            <FilmsList films={getFilmsList(filteredFilms)} />
 
           </div>
           <div className="catalog__more">
