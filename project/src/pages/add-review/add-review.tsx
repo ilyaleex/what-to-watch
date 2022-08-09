@@ -1,12 +1,21 @@
-import Header from '../../components/common/header/header';
-import Breadcrumbs from '../../components/common/header/breadcrumbs';
-import ReviewForm from '../../components/review-form/review-form';
+import Header from '../../components/ui/common/header/header';
+import Breadcrumbs from '../../components/ui/common/header/breadcrumbs';
+import ReviewForm from '../../components/ui/review-form/review-form';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getFilm} from '../../store/film-slice/selectors';
 import {useParams} from 'react-router-dom';
-import {getFilm} from '../../utils/common';
+import {useEffect} from 'react';
+import {fetchFilmAction} from '../../services/api-action';
 
 function AddReview(): JSX.Element {
+  const film = useAppSelector(getFilm);
   const {id} = useParams();
-  const film = getFilm(id);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilmAction(id as string));
+  }, [id, dispatch]);
+
 
   return (
     <section className="film-card film-card--full" style={{background: `${film.backgroundColor}`}}>
@@ -30,7 +39,7 @@ function AddReview(): JSX.Element {
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewForm filmId={film.id}/>
       </div>
 
     </section>

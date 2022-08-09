@@ -11,6 +11,12 @@ export type Comment = {
   user: User
 }
 
+export type NewComment = {
+  filmId: number
+  rating: number
+  text: string
+}
+
 export type CommentProps = {
   comment: Comment
 }

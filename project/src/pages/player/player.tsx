@@ -1,12 +1,20 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import {getFilm} from '../../utils/common';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getFilm} from '../../store/film-slice/selectors';
+import {useEffect} from 'react';
+import {fetchFilmAction} from '../../services/api-action';
 
 function Player(): JSX.Element {
   const navigate = useNavigate();
-
-  const params = useParams();
-  const film = getFilm(params.id as string);
+  const film = useAppSelector(getFilm);
   const {posterImage} = film;
+
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilmAction(id as string));
+  }, [id, dispatch]);
 
   return (
     <div className="player">
@@ -18,7 +26,7 @@ function Player(): JSX.Element {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%;'}}>Toggler</div>
+            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
           </div>
           <div className="player__time-value">1:30:29</div>
         </div>

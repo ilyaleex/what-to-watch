@@ -1,22 +1,33 @@
-import Header from '../../components/common/header/header';
-import Footer from '../../components/common/footer/footer';
+import Header from '../../components/ui/common/header/header';
+import Footer from '../../components/ui/common/footer/footer';
 import {Link, Route, Routes, useParams} from 'react-router-dom';
-import PlayButton from '../../components/play-button/play-button';
-import FilmsList from '../../components/films-list/films-list';
-import {getFilm} from '../../utils/common';
-import Overview from '../../components/tabs/overview';
-import Details from '../../components/tabs/details';
-import Reviews from '../../components/tabs/reviews';
-import {useAppSelector} from '../../hooks';
+import PlayButton from '../../components/ui/play-button/play-button';
+import FilmsList from '../../components/ui/films-list/films-list';
+import Overview from '../../components/ui/tabs/overview';
+import Details from '../../components/ui/tabs/details';
+import Reviews from '../../components/ui/tabs/reviews';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/auth-slice/selectors';
+import {getFilm, getSimilarFilms} from '../../store/film-slice/selectors';
+import {useEffect} from 'react';
+import {fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction} from '../../services/api-action';
 
 const FILMS_COUNT = 4;
 
 function MoviePage(): JSX.Element {
-  const similarFilms = useAppSelector((state) => state.filmsList).slice(0, FILMS_COUNT);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const film = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, FILMS_COUNT);
+
   const {id} = useParams();
-  const film = getFilm(id);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFilmAction(id as string));
+    dispatch(fetchSimilarFilmsAction(id as string));
+    dispatch(fetchCommentsAction(id as string));
+  }, [id, dispatch]);
 
   return (
     <>
@@ -87,7 +98,7 @@ function MoviePage(): JSX.Element {
                 <Route>
                   <Route index element={<Overview film={film}/>}/>
                   <Route path="details" element={<Details film={film}/>}/>
-                  <Route path="reviews" element={<Reviews key={id} comments={comments}/>}/>
+                  <Route path="reviews" element={<Reviews />}/>
                 </Route>
               </Routes>
 

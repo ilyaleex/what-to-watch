@@ -1,11 +1,12 @@
-import Header from '../../components/common/header/header';
-import Footer from '../../components/common/footer/footer';
-import UserPageTitle from '../../components/common/header/user-page-title';
-import FilmsList from '../../components/films-list/films-list';
+import Header from '../../components/ui/common/header/header';
+import Footer from '../../components/ui/common/footer/footer';
+import UserPageTitle from '../../components/ui/common/header/user-page-title';
+import FilmsList from '../../components/ui/films-list/films-list';
 import {useAppSelector} from '../../hooks';
+import {getFilms} from '../../store/films-slice/selectors';
 
 function Watchlist(): JSX.Element {
-  const films = useAppSelector((state) => state.filmsList);
+  const films = useAppSelector(getFilms);
 
   return (
     <div className="user-page">
