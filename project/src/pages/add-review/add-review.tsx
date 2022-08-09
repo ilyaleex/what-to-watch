@@ -9,13 +9,12 @@ import {fetchFilmAction} from '../../services/api-action';
 
 function AddReview(): JSX.Element {
   const film = useAppSelector(getFilm);
-  const params = useParams();
-  const filmId = params.id as string;
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFilmAction(filmId));
-  }, [filmId, dispatch]);
+    dispatch(fetchFilmAction(id as string));
+  }, [id, dispatch]);
 
 
   return (

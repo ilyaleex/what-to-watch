@@ -9,13 +9,12 @@ function Player(): JSX.Element {
   const film = useAppSelector(getFilm);
   const {posterImage} = film;
 
-  const params = useParams();
-  const filmId = params.id as string;
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFilmAction(filmId));
-  }, [filmId, dispatch]);
+    dispatch(fetchFilmAction(id as string));
+  }, [id, dispatch]);
 
   return (
     <div className="player">

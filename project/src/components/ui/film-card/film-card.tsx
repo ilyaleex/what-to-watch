@@ -5,6 +5,10 @@ import classNames from 'classnames';
 
 const PLAY_TIMEOUT = 1000;
 
+const FILM_CARD_WIDTH = 270;
+
+const FILM_CARD_HEIGHT = 175;
+
 export const getFilmUrl = (id: string | number): string => `/films/${id}`;
 
 type FilmCardProps = {
@@ -57,8 +61,8 @@ function FilmCard(props: FilmCardProps): JSX.Element {
           loop
           muted
           ref={videoRef}
-          width={270}
-          height={175}
+          width={FILM_CARD_WIDTH}
+          height={FILM_CARD_HEIGHT}
         />
       </div>
 

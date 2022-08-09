@@ -20,15 +20,14 @@ function MoviePage(): JSX.Element {
   const film = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, FILMS_COUNT);
 
-  const params = useParams();
-  const filmId = params.id as string;
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFilmAction(filmId));
-    dispatch(fetchSimilarFilmsAction(filmId));
-    dispatch(fetchCommentsAction(filmId));
-  }, [filmId, dispatch]);
+    dispatch(fetchFilmAction(id as string));
+    dispatch(fetchSimilarFilmsAction(id as string));
+    dispatch(fetchCommentsAction(id as string));
+  }, [id, dispatch]);
 
   return (
     <>
