@@ -23,7 +23,7 @@ function ReviewForm({filmId}: ReviewFormType): JSX.Element {
   };
 
   const handleSetRating = (value: string) => {
-    setRating(parseInt(value, 10));
+    setRating(parseInt(value, STARS_AMOUNT));
   };
 
   return (
