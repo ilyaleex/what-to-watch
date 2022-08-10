@@ -2,14 +2,13 @@ import {Link} from 'react-router-dom';
 import {useEffect, useRef} from 'react';
 import {Film} from '../../../types/film';
 import classNames from 'classnames';
+import {getFilmUrl} from '../../../store/film-slice/selectors';
 
 const PLAY_TIMEOUT = 1000;
 
 const FILM_CARD_WIDTH = 270;
 
 const FILM_CARD_HEIGHT = 175;
-
-export const getFilmUrl = (id: string | number): string => `/films/${id}`;
 
 type FilmCardProps = {
   film: Film;

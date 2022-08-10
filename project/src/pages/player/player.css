@@ -1,0 +1,12 @@
+.player-preloader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type=range].player__progress {
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+}

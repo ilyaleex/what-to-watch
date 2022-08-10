@@ -9,13 +9,13 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
-import LoadingScreen from '../ui/mid-components/loading-screen/loading-screen';
 import {isCheckedAuth} from '../../utils/common';
 import HistoryRoute from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import {getLoadedFilmsDataStatus} from '../../store/films-slice/selectors';
 import {getAuthorizationStatus} from '../../store/auth-slice/selectors';
 import {getLoadedPromoDataStatus} from '../../store/promo-slice/selectors';
+import Loader from '../ui/util-components/loader/loader';
 
 function App(): JSX.Element {
   const isDataFilmsLoaded = useAppSelector(getLoadedFilmsDataStatus);
@@ -24,7 +24,7 @@ function App(): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || isDataFilmsLoaded || isDataPromoLoaded) {
     return (
-      <LoadingScreen />
+      <Loader />
     );
   }
 

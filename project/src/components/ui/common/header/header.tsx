@@ -3,13 +3,13 @@ import {AppRoute, AuthorizationStatus} from '../../../../const';
 import {logoutAction} from '../../../../services/api-action';
 import {useAppDispatch, useAppSelector} from '../../../../hooks';
 import {getAuthorizationStatus, getAvatar} from '../../../../store/auth-slice/selectors';
+import {PropsWithChildren} from 'react';
 
-type Props = {
-  children?: JSX.Element
-  className?: string
-}
+type HeaderProps = PropsWithChildren<{
+  className?: string;
+}>
 
-function Header({children, className}: Props): JSX.Element {
+function Header({className, children}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

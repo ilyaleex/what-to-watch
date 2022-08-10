@@ -102,9 +102,34 @@ export const sendCommentAction = createAsyncThunk<Comment[], NewComment, {
   extra: AxiosInstance
 }>(
   'film/sendComment',
-  async ({filmId, text, rating}, {dispatch, extra: api}) => {
-    const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {text, rating});
-    dispatch(redirectToRoute(AppRoute.FilmComments));
+  async ({filmId, text, rating}, {dispatch, extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {text, rating});
+      dispatch(redirectToRoute(AppRoute.FilmComments));
+      return data;
+    } catch (err) {
+      const error = err as AxiosError<{error: string}>;
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const fetchFavorites = createAsyncThunk<Film[], undefined, {
+  extra: AxiosInstance,
+}>(
+  'favorite/fetchFavorites',
+  async (_args, {extra: api}) => {
+    const {data} = await api.get<Film[]>(APIRoute.Favorite);
+    return data;
+  }
+);
+
+export const addToFavorite = createAsyncThunk<Film, {id: number, status: number}, {
+  extra: AxiosInstance
+}>(
+  'favorite/addToFavorite',
+  async ({id, status}, {extra: api}) => {
+    const {data} = await api.post<Film>(`${APIRoute.Favorite}/${id}/${status}`);
     return data;
   }
 );

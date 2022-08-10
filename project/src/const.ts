@@ -22,6 +22,7 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Promo = '/promo',
   Films = '/films',
+  Favorite = '/favorite',
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
@@ -32,9 +33,23 @@ export enum NameSpace {
   Promo = 'PROMO',
   Film = 'FILM',
   Films = 'FILMS',
+  Favorite = 'FAVORITE',
   Comments = 'COMMENTS',
+}
+
+export enum CommentLength {
+  Min = 50,
+  Max = 400,
 }
 
 export const ALL_GENRES = 'All genres';
 
+export const STARS_AMOUNT = 10;
+
+export const DEFAULT_RATING = 0;
+
 export const FILMS_COUNT_PER_STEP = 8;
+
+export const BASE_URL = 'https://10.react.pages.academy/wtw';
+
+export const REQUEST_TIMEOUT = 5000;

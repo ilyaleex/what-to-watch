@@ -2,19 +2,25 @@ import Header from '../../components/ui/common/header/header';
 import Breadcrumbs from '../../components/ui/common/header/breadcrumbs';
 import ReviewForm from '../../components/ui/review-form/review-form';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getFilm} from '../../store/film-slice/selectors';
+import {getFilm, getIsLoadedFilm} from '../../store/film-slice/selectors';
 import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {fetchFilmAction} from '../../services/api-action';
+import Loader from '../../components/ui/util-components/loader/loader';
 
 function AddReview(): JSX.Element {
   const film = useAppSelector(getFilm);
   const {id} = useParams();
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(getIsLoadedFilm);
 
   useEffect(() => {
     dispatch(fetchFilmAction(id as string));
   }, [id, dispatch]);
+
+  if (isLoading) {
+    return <Loader/>;
+  }
 
 
   return (

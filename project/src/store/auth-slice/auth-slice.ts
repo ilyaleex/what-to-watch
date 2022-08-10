@@ -5,6 +5,7 @@ import {checkAuthAction, loginAction, logoutAction} from '../../services/api-act
 
 const initialState: AuthSlice = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  isSending: false,
   avatar: '',
   error: '',
 };
@@ -28,14 +29,19 @@ export const authSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.avatar = '';
       })
+      .addCase(loginAction.pending, (state, action: AnyAction) => {
+        state.isSending = true;
+      })
       .addCase(loginAction.fulfilled, (state, action: AnyAction) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.avatar = action.payload;
+        state.isSending = false;
         state.error = '';
       })
       .addCase(loginAction.rejected, (state, action: AnyAction) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.avatar = '';
+        state.isSending = true;
         state.error = action.payload;
       })
       .addCase(logoutAction.fulfilled, (state) => {

@@ -1,18 +1,32 @@
 import Header from '../../components/ui/common/header/header';
 import Footer from '../../components/ui/common/footer/footer';
-import UserPageTitle from '../../components/ui/common/header/user-page-title';
 import FilmsList from '../../components/ui/films-list/films-list';
-import {useAppSelector} from '../../hooks';
-import {getFilms} from '../../store/films-slice/selectors';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {fetchFavorites} from '../../services/api-action';
+import {useEffect} from 'react';
+import Loader from '../../components/ui/util-components/loader/loader';
+import {getFavorites, getIsLoadedFavorites} from '../../store/favorite-slice/selectors';
 
 function Watchlist(): JSX.Element {
-  const films = useAppSelector(getFilms);
+  const dispatch = useAppDispatch();
+  const favoriteFilms = useAppSelector(getFavorites);
+  const favoriteCount = favoriteFilms.length;
+  const isLoading = useAppSelector(getIsLoadedFavorites);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <Loader/>;
+  }
+
 
   return (
     <div className="user-page">
 
       <Header className={'user-page__head'}>
-        <UserPageTitle />
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoriteCount}</span></h1>
       </Header>
 
       <section className="catalog">
@@ -20,7 +34,7 @@ function Watchlist(): JSX.Element {
 
         <div className="catalog__films-list">
 
-          <FilmsList films={films} />
+          <FilmsList films={favoriteFilms} />
 
         </div>
       </section>

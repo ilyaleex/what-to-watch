@@ -4,21 +4,23 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {FormEvent, useState} from 'react';
 import {loginAction} from '../../services/api-action';
-import {getAuthorizationStatus, getError} from '../../store/auth-slice/selectors';
+import {getAuthorizationStatus, getError, getIsLoginSending} from '../../store/auth-slice/selectors';
 import {setError} from '../../store/auth-slice/auth-slice';
-
-const MESSAGE = 'We can’t recognize this email \n and password combination. Please try again.';
+import {signInValidator} from '../../utils/validation';
 
 function SignIn(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const error = useAppSelector(getError);
+  const isSending = useAppSelector(getIsLoginSending);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (!email || !password) {
-      dispatch(setError(MESSAGE));
+    const validError = signInValidator(email, password);
+
+    if (validError) {
+      dispatch(setError(validError));
     } else {
       dispatch(loginAction({login: email, password}));
     }
@@ -74,7 +76,17 @@ function SignIn(): JSX.Element {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">Sign in</button>
+            <button
+              className="sign-in__btn"
+              type="submit"
+              disabled={isSending}
+            >
+              {
+                !isSending
+                  ? 'Sign In'
+                  : 'Sending...'
+              }
+            </button>
           </div>
         </form>
       </div>

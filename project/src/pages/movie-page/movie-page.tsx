@@ -9,9 +9,11 @@ import Reviews from '../../components/ui/tabs/reviews';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/auth-slice/selectors';
-import {getFilm, getSimilarFilms} from '../../store/film-slice/selectors';
+import {getFilm, getIsLoadedFilm, getSimilarFilms} from '../../store/film-slice/selectors';
 import {useEffect} from 'react';
 import {fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction} from '../../services/api-action';
+import ButtonFavorite from '../../components/ui/button-favorite/button-favorite';
+import Loader from '../../components/ui/util-components/loader/loader';
 
 const FILMS_COUNT = 4;
 
@@ -19,15 +21,22 @@ function MoviePage(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const film = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, FILMS_COUNT);
+  const isLoading = useAppSelector(getIsLoadedFilm);
 
   const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFilmAction(id as string));
-    dispatch(fetchSimilarFilmsAction(id as string));
-    dispatch(fetchCommentsAction(id as string));
+    if (id) {
+      dispatch(fetchFilmAction(id as string));
+      dispatch(fetchSimilarFilmsAction(id as string));
+      dispatch(fetchCommentsAction(id as string));
+    }
   }, [id, dispatch]);
+
+  if (isLoading) {
+    return <Loader/>;
+  }
 
   return (
     <>
@@ -52,22 +61,13 @@ function MoviePage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-
                 <PlayButton id={film.id}/>
-
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <ButtonFavorite id={film.id} isFavorite={film.isFavorite}/>
                 {
                   authorizationStatus === AuthorizationStatus.Auth ?
                     <Link to="review" className="btn film-card__button">Add review</Link>
                     : null
                 }
-
               </div>
             </div>
           </div>

@@ -5,3 +5,8 @@ export const getFilm = (state: State) => state[NameSpace.Film].film;
 
 export const getSimilarFilms = (state: State) => state[NameSpace.Film].similarFilms;
 
+export const getIsLoadedFilm = (state: State) => state[NameSpace.Film].isDataLoaded;
+
+export const getFilmUrl = (id: string | number): string => `/films/${id}`;
+
+
