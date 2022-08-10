@@ -15,21 +15,12 @@ function Player(): JSX.Element {
   const navigate = useNavigate();
   const film = useAppSelector(getFilm);
   const {id} = useParams();
-  // const {posterImage} = film;
-  //
-  // const {id} = useParams();
-  // const dispatch = useAppDispatch();
-  //
-  // useEffect(() => {
-  //   dispatch(fetchFilmAction(id as string));
-  // }, [id, dispatch]);
-  //
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [progress, setProgress] = useState<number>(ProgressPlay.Start);
-  const [lastTime, setLastTime] = useState<number>(ProgressPlay.Start);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(ProgressPlay.Start);
+  const [lastTime, setLastTime] = useState(ProgressPlay.Start);
   const formatLastTime = formattingLastTime(lastTime);
 
   useEffect(() => {
