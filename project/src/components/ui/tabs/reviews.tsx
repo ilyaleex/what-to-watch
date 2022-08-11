@@ -32,31 +32,25 @@ function Reviews(): JSX.Element {
 
   return (
     <div className="film-card__reviews film-card__row">
-      {
-        comments ?
-          <>
-            <div className="film-card__reviews-col">
-              {comments.slice(0, COMMENTS_IN_FIRST_COL).map((comment) => (
-                <Review
-                  key={comment.id}
-                  comment={comment}
-                />
-              )
-              )}
-            </div>
-            <div className="film-card__reviews-col">
-              {comments.slice(COMMENTS_IN_FIRST_COL).map((comment) => (
-                <Review
-                  key={comment.id}
-                  comment={comment}
-                />
-              )
-              )}
-            </div>
-          </>
-          :
-          <p>No reviews yet</p>
-      }
+
+      <div className="film-card__reviews-col">
+        {comments.slice(0, COMMENTS_IN_FIRST_COL).map((comment) => (
+          <Review
+            key={comment.id}
+            comment={comment}
+          />
+        )
+        )}
+      </div>
+      <div className="film-card__reviews-col">
+        {comments.slice(COMMENTS_IN_FIRST_COL).map((comment) => (
+          <Review
+            key={comment.id}
+            comment={comment}
+          />
+        )
+        )}
+      </div>
 
     </div>
   );
