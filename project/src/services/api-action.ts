@@ -19,7 +19,7 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<Film, string, {
+export const fetchFilmAction = createAsyncThunk<Film, string | undefined, {
   extra: AxiosInstance
 }>(
   'film/fetchFilm',
@@ -39,7 +39,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk<Film[], string, {
   },
 );
 
-export const fetchCommentsAction = createAsyncThunk<Comment[], string, {
+export const fetchCommentsAction = createAsyncThunk<Comment[], string | undefined, {
   extra: AxiosInstance
 }>(
   'film/fetchFilms',
@@ -102,10 +102,10 @@ export const sendCommentAction = createAsyncThunk<Comment[], NewComment, {
   extra: AxiosInstance
 }>(
   'film/sendComment',
-  async ({filmId, text, rating}, {dispatch, extra: api, rejectWithValue}) => {
+  async ({filmId, comment, rating}, {dispatch, extra: api, rejectWithValue}) => {
     try {
-      const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {text, rating});
-      dispatch(redirectToRoute(AppRoute.FilmComments));
+      const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+      dispatch(redirectToRoute(`films/${filmId}/reviews`));
       return data;
     } catch (err) {
       const error = err as AxiosError<{error: string}>;

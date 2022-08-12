@@ -16,7 +16,6 @@ import {getLoadedFilmsDataStatus} from '../../store/films-slice/selectors';
 import {getAuthorizationStatus} from '../../store/auth-slice/selectors';
 import {getLoadedPromoDataStatus} from '../../store/promo-slice/selectors';
 import Loader from '../ui/util-components/loader/loader';
-import ScrollTop from '../ui/util-components/scroll-top/scroll-top';
 
 function App(): JSX.Element {
   const isDataFilmsLoaded = useAppSelector(getLoadedFilmsDataStatus);
@@ -31,7 +30,6 @@ function App(): JSX.Element {
 
   return (
     <HistoryRoute history={browserHistory}>
-      <ScrollTop />
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage />}/>
         <Route path={AppRoute.GenreName} element={<MainPage />}/>

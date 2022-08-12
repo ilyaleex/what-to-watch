@@ -1,6 +1,6 @@
 export enum AppRoute {
   Main = '/',
-  GenreName = '/genre/:genre',
+  GenreName = '/genre/:genreName',
   Genre = '/genre',
   SignIn = '/login',
   MyList = '/mylist',
@@ -9,7 +9,7 @@ export enum AppRoute {
   FilmId = ':id/*',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  FilmComments = '/films/:id/reviews',
+  Reviews = 'reviews',
   NotFound = '*',
 }
 

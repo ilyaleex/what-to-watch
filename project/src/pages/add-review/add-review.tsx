@@ -15,8 +15,8 @@ function AddReview(): JSX.Element {
   const isLoading = useAppSelector(getIsLoadedFilm);
 
   useEffect(() => {
-    dispatch(fetchFilmAction(id as string));
-  }, [id, dispatch]);
+    dispatch(fetchFilmAction(id));
+  }, [dispatch, id]);
 
   if (isLoading) {
     return <Loader/>;

@@ -59,6 +59,7 @@ function SignIn(): JSX.Element {
                 id="user-email"
                 value={email}
                 onChange={(evt) => setEmail(evt.target.value)}
+                disabled={isSending}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
@@ -71,6 +72,7 @@ function SignIn(): JSX.Element {
                 id="user-password"
                 value={password}
                 onChange={(evt) => setPassword(evt.target.value)}
+                disabled={isSending}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>

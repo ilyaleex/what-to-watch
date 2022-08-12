@@ -51,11 +51,6 @@ const RatingName = [
   }
 ];
 
-export const formattingDuration = (runtime: number) => {
-  const timeDuration = dayjs.duration(runtime, 'minutes');
-  return timeDuration.format(DurationTemplate.HoursMinutes);
-};
-
 export const formattingLastTime = (runtime: number) => {
   const timeDuration = dayjs.duration(runtime, 'seconds');
 

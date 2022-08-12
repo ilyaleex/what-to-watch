@@ -10,16 +10,16 @@ type ReviewFormType = {
 }
 
 function ReviewForm({filmId}: ReviewFormType): JSX.Element {
-  const [text, setText] = useState('');
+  const [comment, setComment] = useState('');
   const [rating, setRating] = useState(DEFAULT_RATING);
   const dispatch = useAppDispatch();
   const isSending = useAppSelector(getIsSendingComment);
   const error = useAppSelector(getCommentError);
-  const isValidForm = useValidComment(text, rating);
+  const isValidForm = useValidComment(comment, rating);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(sendCommentAction({filmId, text, rating}));
+    dispatch(sendCommentAction({filmId, comment, rating}));
   };
 
   const handleSetRating = (value: string) => {
@@ -71,8 +71,8 @@ function ReviewForm({filmId}: ReviewFormType): JSX.Element {
           name="review-text"
           id="review-text"
           placeholder="Review text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
           disabled={isSending}
         />
 

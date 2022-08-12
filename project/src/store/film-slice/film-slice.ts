@@ -16,7 +16,7 @@ export const filmSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchFilmAction.pending, (state, action) => {
+      .addCase(fetchFilmAction.pending, (state) => {
         state.isDataLoaded = true;
       })
       .addCase(fetchFilmAction.fulfilled, (state, action) => {

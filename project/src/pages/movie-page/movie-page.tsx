@@ -28,9 +28,9 @@ function MoviePage(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchFilmAction(id as string));
-      dispatch(fetchSimilarFilmsAction(id as string));
-      dispatch(fetchCommentsAction(id as string));
+      dispatch(fetchFilmAction(id));
+      dispatch(fetchSimilarFilmsAction(id));
+      dispatch(fetchCommentsAction(id));
     }
   }, [id, dispatch]);
 
