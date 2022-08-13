@@ -9,8 +9,6 @@ const FILM_CARD_WIDTH = 270;
 
 const FILM_CARD_HEIGHT = 175;
 
-export const getFilmUrl = (id: string | number): string => `/films/${id}`;
-
 type FilmCardProps = {
   film: Film;
   activeCard: number | null;
@@ -68,7 +66,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
 
       <h3 className="small-film-card__title">
         <Link
-          to={getFilmUrl(id)}
+          to={`/films/${id}`}
           className="small-film-card__link"
         >
           {name}

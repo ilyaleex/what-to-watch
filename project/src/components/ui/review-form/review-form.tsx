@@ -1,25 +1,25 @@
 import React, {FormEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {sendCommentAction} from '../../../services/api-action';
-import {getIsSendingComment} from '../../../store/comments-slice/selectors';
-
-const STARS_AMOUNT = 10;
-
-const DEFAULT_RATING = 0;
+import {getCommentError, getIsSendingComment} from '../../../store/comments-slice/selectors';
+import {DEFAULT_RATING, STARS_AMOUNT} from '../../../const';
+import {useValidComment} from '../../../hooks/use-valid-review';
 
 type ReviewFormType = {
   filmId: number
 }
 
 function ReviewForm({filmId}: ReviewFormType): JSX.Element {
-  const [text, setText] = useState('');
+  const [comment, setComment] = useState('');
   const [rating, setRating] = useState(DEFAULT_RATING);
   const dispatch = useAppDispatch();
   const isSending = useAppSelector(getIsSendingComment);
+  const error = useAppSelector(getCommentError);
+  const isValidForm = useValidComment(comment, rating);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(sendCommentAction({filmId, text, rating}));
+    dispatch(sendCommentAction({filmId, comment, rating}));
   };
 
   const handleSetRating = (value: string) => {
@@ -28,6 +28,12 @@ function ReviewForm({filmId}: ReviewFormType): JSX.Element {
 
   return (
     <form action="#" className="add-review__form" onSubmit={handleSubmit}>
+      {
+        error &&
+        <div className="sign-in__message">
+          <p>{error}</p>
+        </div>
+      }
       <div className="rating">
 
         <div className="rating__stars">
@@ -65,8 +71,8 @@ function ReviewForm({filmId}: ReviewFormType): JSX.Element {
           name="review-text"
           id="review-text"
           placeholder="Review text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
           disabled={isSending}
         />
 
@@ -74,7 +80,7 @@ function ReviewForm({filmId}: ReviewFormType): JSX.Element {
           <button
             className="add-review__btn"
             type="submit"
-            disabled={isSending}
+            disabled={isSending || !isValidForm}
           >
             Post
           </button>

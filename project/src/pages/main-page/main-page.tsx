@@ -10,10 +10,11 @@ import {FILMS_COUNT_PER_STEP} from '../../const';
 import {selectFilterFilms} from '../../store/films-slice/selectors';
 import {getPromo} from '../../store/promo-slice/selectors';
 import {Film} from '../../types/film';
+import ButtonFavorite from '../../components/ui/button-favorite/button-favorite';
 
 function MainPage(): JSX.Element {
   const promo = useAppSelector(getPromo);
-  const {id, name, genre, released, backgroundImage, posterImage} = promo;
+  const {id, name, genre, released, backgroundImage, posterImage, isFavorite} = promo;
   const [showCount, setShowCount] = useState(FILMS_COUNT_PER_STEP);
   const filteredFilms = useAppSelector(selectFilterFilms);
   const getFilmsList = (films: Film[]) => films.slice(0, showCount);
@@ -47,13 +48,8 @@ function MainPage(): JSX.Element {
 
                 <PlayButton id={id}/>
 
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <ButtonFavorite id={id} isFavorite={isFavorite}/>
+
               </div>
             </div>
           </div>

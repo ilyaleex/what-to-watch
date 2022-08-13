@@ -2,7 +2,6 @@ import {State} from '../../types/state';
 import {Film} from '../../types/film';
 import {ALL_GENRES, NameSpace} from '../../const';
 import {createSelector} from 'reselect';
-import {getGenres} from '../../utils/common';
 
 const getActiveGenre = (state: State) => state[NameSpace.Films].genre;
 
@@ -20,5 +19,10 @@ export const selectFilterFilms = createSelector(
 
 export const selectGenres = createSelector(
   getFilms,
-  (films) => getGenres(films),
+  (films) => [...new Set(films.map((film) => film.genre))],
+);
+
+export const selectFavoritesCount = createSelector(
+  getFilms,
+  (films) => films.filter((item) => item.isFavorite).length,
 );

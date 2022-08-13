@@ -1,7 +1,7 @@
 import {FilmsSlice} from '../../types/state';
 import {createSlice} from '@reduxjs/toolkit';
 import {ALL_GENRES, NameSpace} from '../../const';
-import {fetchFilmsAction} from '../../services/api-action';
+import {addToFavorite, fetchFilmsAction} from '../../services/api-action';
 
 const initialState: FilmsSlice = {
   genre: ALL_GENRES,
@@ -25,6 +25,10 @@ export const filmsSlice = createSlice({
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.filmsList = action.payload;
         state.isDataLoaded = false;
+      })
+      .addCase(addToFavorite.fulfilled, (state, action) => {
+        const index = state.filmsList.findIndex((item) => item.id === action.payload.id);
+        state.filmsList[index].isFavorite = action.payload.isFavorite;
       });
   }
 });

@@ -1,14 +1,21 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import {getToken} from './token';
-import {store} from '../store';
 import {redirectToRoute} from '../store/action';
-import {AppRoute} from '../const';
+import {AppRoute, BASE_URL, REQUEST_TIMEOUT} from '../const';
+import {Store} from '@reduxjs/toolkit';
+import {toast} from 'react-toastify';
+import {ErrorMessage} from '../utils/validation';
 
-const BASE_URL = 'https://10.react.pages.academy/wtw';
+let store: Store;
 
-const REQUEST_TIMEOUT = 5000;
+export const injectStore = (_store: Store) => {
+  store = _store;
+};
 
-const NOT_FOUND = 404;
+enum ErrorCode {
+  NotFound = 404,
+  ServerError = 500,
+}
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -32,8 +39,11 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response && error.response.status === NOT_FOUND) {
+      if (error.response && error.response.status === ErrorCode.NotFound) {
         store.dispatch(redirectToRoute(AppRoute.NotFound));
+      }
+      if (error.response && error.response.status >= ErrorCode.ServerError) {
+        toast.error(ErrorMessage.ServerError);
       }
       throw error;
     });

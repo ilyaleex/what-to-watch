@@ -14,7 +14,7 @@ export type Comment = {
 export type NewComment = {
   filmId: number
   rating: number
-  text: string
+  comment: string
 }
 
 export type CommentProps = {

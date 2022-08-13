@@ -1,11 +1,12 @@
 import {CommentsSlice} from '../../types/state';
-import {createSlice} from '@reduxjs/toolkit';
+import {AnyAction, createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {fetchCommentsAction, sendCommentAction} from '../../services/api-action';
 
 const initialState: CommentsSlice = {
   comments: [],
   isSending: false,
+  error: '',
 };
 
 export const commentsSlice = createSlice({
@@ -23,6 +24,11 @@ export const commentsSlice = createSlice({
       .addCase(sendCommentAction.fulfilled, (state, action) => {
         state.isSending = false;
         state.comments = action.payload;
+        state.error = '';
+      })
+      .addCase(sendCommentAction.rejected, (state, action: AnyAction) => {
+        state.isSending = false;
+        state.error = action.payload;
       });
   }
 });
