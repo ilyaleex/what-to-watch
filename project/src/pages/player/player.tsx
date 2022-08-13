@@ -1,6 +1,6 @@
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
-import {getFilm, getFilmUrl} from '../../store/film-slice/selectors';
+import {getFilm} from '../../store/film-slice/selectors';
 import {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {formattingLastTime} from '../../utils/common';
 import Spinner from '../../components/ui/util-components/spinner/spinner';
@@ -30,8 +30,7 @@ function Player(): JSX.Element {
   }, [isPlaying]);
 
   if (!film.id) {
-    const filmId = id as string;
-    return <Navigate to={getFilmUrl(filmId)}/>;
+    return <Navigate to={`/films/${id}`}/>;
   }
 
   const {name, previewImage, videoLink} = film;

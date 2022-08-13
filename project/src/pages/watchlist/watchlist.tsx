@@ -21,7 +21,6 @@ function Watchlist(): JSX.Element {
     return <Loader/>;
   }
 
-
   return (
     <div className="user-page">
 

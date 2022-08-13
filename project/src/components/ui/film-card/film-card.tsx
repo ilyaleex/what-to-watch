@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom';
 import {useEffect, useRef} from 'react';
 import {Film} from '../../../types/film';
 import classNames from 'classnames';
-import {getFilmUrl} from '../../../store/film-slice/selectors';
 
 const PLAY_TIMEOUT = 1000;
 
@@ -67,7 +66,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
 
       <h3 className="small-film-card__title">
         <Link
-          to={getFilmUrl(id)}
+          to={`/films/${id}`}
           className="small-film-card__link"
         >
           {name}
