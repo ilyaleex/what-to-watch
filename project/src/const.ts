@@ -9,7 +9,6 @@ export enum AppRoute {
   FilmId = ':id/*',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  Reviews = 'reviews',
   NotFound = '*',
 }
 
@@ -41,6 +40,8 @@ export enum CommentLength {
   Min = 50,
   Max = 400,
 }
+
+export const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
 
 export const ALL_GENRES = 'All genres';
 

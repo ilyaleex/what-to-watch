@@ -29,7 +29,7 @@ export const authSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.avatar = '';
       })
-      .addCase(loginAction.pending, (state, action: AnyAction) => {
+      .addCase(loginAction.pending, (state) => {
         state.isSending = true;
       })
       .addCase(loginAction.fulfilled, (state, action: AnyAction) => {
