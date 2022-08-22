@@ -10,18 +10,21 @@ export type AppDispatch = typeof store.dispatch;
 export type PromoSlice = {
   promo: Film
   isDataLoaded: boolean
+  isError: boolean
 }
 
 export type FilmsSlice = {
   genre: string
   filmsList: Film[]
   isDataLoaded: boolean
+  isError: boolean
 }
 
 export type FilmSlice = {
   film: Film
   similarFilms: Film[]
   isDataLoaded: boolean
+  isError: boolean
 }
 
 export type CommentsSlice = {
@@ -38,6 +41,7 @@ export type AuthSlice = {
 }
 
 export type FavoriteState = {
-  favorites: Film[];
-  isDataLoaded: boolean;
+  favorites: Film[]
+  isDataLoaded: boolean
+  isError: boolean
 }

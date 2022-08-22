@@ -21,7 +21,6 @@ const ONE_HOUR = 360;
 enum DurationTemplate {
   MinutesSeconds = 'm[:]s',
   HoursMinutesSeconds = 'H[:] m[:]s',
-  HoursMinutes = 'H[h] m[m]'
 }
 
 const RatingName = [

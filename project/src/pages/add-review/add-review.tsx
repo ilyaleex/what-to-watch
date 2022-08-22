@@ -2,17 +2,19 @@ import Header from '../../components/ui/common/header/header';
 import Breadcrumbs from '../../components/ui/common/header/breadcrumbs';
 import ReviewForm from '../../components/ui/review-form/review-form';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getFilm, getIsLoadedFilm} from '../../store/film-slice/selectors';
+import {getErrorLoadFilm, getFilm, getIsLoadedFilm} from '../../store/film-slice/selectors';
 import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {fetchFilmAction} from '../../services/api-action';
 import Loader from '../../components/ui/util-components/loader/loader';
+import ServerError from '../server-error/server-error';
 
 function AddReview(): JSX.Element {
   const film = useAppSelector(getFilm);
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(getIsLoadedFilm);
+  const isErrorLoadFilm = useAppSelector(getErrorLoadFilm);
 
   useEffect(() => {
     dispatch(fetchFilmAction(id));
@@ -22,6 +24,9 @@ function AddReview(): JSX.Element {
     return <Loader/>;
   }
 
+  if (isErrorLoadFilm) {
+    return <ServerError/>;
+  }
 
   return (
     <section className="film-card film-card--full" style={{background: `${film.backgroundColor}`}}>

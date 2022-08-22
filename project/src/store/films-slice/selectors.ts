@@ -9,6 +9,8 @@ export const getFilms = (state: State) => state[NameSpace.Films].filmsList;
 
 export const getLoadedFilmsDataStatus = (state: State) => state[NameSpace.Films].isDataLoaded;
 
+export const getErrorLoadFilms = (state: State) => state[NameSpace.Films].isError;
+
 export const selectFilterFilms = createSelector(
   [getFilms, getActiveGenre],
   (films, genre) =>

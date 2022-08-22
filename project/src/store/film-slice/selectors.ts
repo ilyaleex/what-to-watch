@@ -7,4 +7,4 @@ export const getSimilarFilms = (state: State) => state[NameSpace.Film].similarFi
 
 export const getIsLoadedFilm = (state: State) => state[NameSpace.Film].isDataLoaded;
 
-
+export const getErrorLoadFilm = (state: State) => state[NameSpace.Film].isError;

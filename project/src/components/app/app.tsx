@@ -10,22 +10,27 @@ import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
 import {isCheckedAuth} from '../../utils/common';
-import HistoryRoute from '../history-route/history-route';
+import HistoryRoute from '../history-router/history-router';
 import browserHistory from '../../browser-history';
-import {getLoadedFilmsDataStatus} from '../../store/films-slice/selectors';
+import {getErrorLoadFilms, getLoadedFilmsDataStatus} from '../../store/films-slice/selectors';
 import {getAuthorizationStatus} from '../../store/auth-slice/selectors';
-import {getLoadedPromoDataStatus} from '../../store/promo-slice/selectors';
+import {getErrorLoadPromo, getLoadedPromoDataStatus} from '../../store/promo-slice/selectors';
 import Loader from '../ui/util-components/loader/loader';
+import ServerError from '../../pages/server-error/server-error';
 
 function App(): JSX.Element {
   const isDataFilmsLoaded = useAppSelector(getLoadedFilmsDataStatus);
   const isDataPromoLoaded = useAppSelector(getLoadedPromoDataStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isErrorLoadFilms = useAppSelector(getErrorLoadFilms);
+  const isErrorLoadPromo = useAppSelector(getErrorLoadPromo);
 
   if (isCheckedAuth(authorizationStatus) || isDataFilmsLoaded || isDataPromoLoaded) {
-    return (
-      <Loader />
-    );
+    return <Loader/>;
+  }
+
+  if (isErrorLoadFilms || isErrorLoadPromo) {
+    return <ServerError/>;
   }
 
   return (

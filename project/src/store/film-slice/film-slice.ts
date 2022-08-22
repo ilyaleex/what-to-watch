@@ -8,6 +8,7 @@ const initialState: FilmSlice = {
   film: {} as Film,
   similarFilms: [],
   isDataLoaded: false,
+  isError: false,
 };
 
 export const filmSlice = createSlice({
@@ -18,10 +19,16 @@ export const filmSlice = createSlice({
     builder
       .addCase(fetchFilmAction.pending, (state) => {
         state.isDataLoaded = true;
+        state.isError = false;
       })
       .addCase(fetchFilmAction.fulfilled, (state, action) => {
         state.film = action.payload;
         state.isDataLoaded = false;
+        state.isError = false;
+      })
+      .addCase(fetchFilmAction.rejected, (state) => {
+        state.isDataLoaded = false;
+        state.isError = true;
       })
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
         state.similarFilms = action.payload;

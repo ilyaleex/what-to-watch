@@ -5,13 +5,15 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchFavorites} from '../../services/api-action';
 import {useEffect} from 'react';
 import Loader from '../../components/ui/util-components/loader/loader';
-import {getFavorites, getIsLoadedFavorites} from '../../store/favorite-slice/selectors';
+import {getErrorLoadFavorite, getFavorites, getIsLoadedFavorites} from '../../store/favorite-slice/selectors';
+import ServerError from '../server-error/server-error';
 
 function Watchlist(): JSX.Element {
   const dispatch = useAppDispatch();
   const favoriteFilms = useAppSelector(getFavorites);
   const favoriteCount = favoriteFilms.length;
   const isLoading = useAppSelector(getIsLoadedFavorites);
+  const isErrorLoadFavorite = useAppSelector(getErrorLoadFavorite);
 
   useEffect(() => {
     dispatch(fetchFavorites());
@@ -19,6 +21,10 @@ function Watchlist(): JSX.Element {
 
   if (isLoading) {
     return <Loader/>;
+  }
+
+  if (isErrorLoadFavorite) {
+    return <ServerError/>;
   }
 
   return (

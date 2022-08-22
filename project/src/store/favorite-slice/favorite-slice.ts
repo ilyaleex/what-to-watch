@@ -6,6 +6,7 @@ import {NameSpace} from '../../const';
 const initialState: FavoriteState = {
   favorites: [],
   isDataLoaded: false,
+  isError: false,
 };
 
 export const favoriteSlice = createSlice({
@@ -16,10 +17,16 @@ export const favoriteSlice = createSlice({
     builder
       .addCase(fetchFavorites.pending, (state) => {
         state.isDataLoaded = true;
+        state.isError = false;
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.isDataLoaded = false;
         state.favorites = action.payload;
+        state.isError = false;
+      })
+      .addCase(fetchFavorites.rejected, (state) => {
+        state.isDataLoaded = false;
+        state.isError = true;
       });
   },
 });

@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useEffect, useRef} from 'react';
 import {Film} from '../../../types/film';
 import classNames from 'classnames';
@@ -20,6 +20,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const {film, activeCard, onMouseEnter, onMouseLeave} = props;
   const {id, previewImage, previewVideoLink, name} = film;
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,6 +42,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
 
   return (
     <article
+      style={{cursor: 'pointer'}}
       className={
         classNames(
           'small-film-card',
@@ -50,6 +52,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
       }
       onMouseEnter={() => onMouseEnter(id)}
       onMouseLeave={onMouseLeave}
+      onClick={() => navigate(`/films/${id}`)}
     >
       <div className="small-film-card__image">
         <video

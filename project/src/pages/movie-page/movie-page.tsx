@@ -9,11 +9,12 @@ import Reviews from '../../components/ui/tabs/reviews';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/auth-slice/selectors';
-import {getFilm, getIsLoadedFilm, getSimilarFilms} from '../../store/film-slice/selectors';
+import {getErrorLoadFilm, getFilm, getIsLoadedFilm, getSimilarFilms} from '../../store/film-slice/selectors';
 import {useEffect} from 'react';
 import {fetchCommentsAction, fetchFilmAction, fetchSimilarFilmsAction} from '../../services/api-action';
 import ButtonFavorite from '../../components/ui/button-favorite/button-favorite';
 import Loader from '../../components/ui/util-components/loader/loader';
+import ServerError from '../server-error/server-error';
 
 const FILMS_COUNT = 4;
 
@@ -22,6 +23,7 @@ function MoviePage(): JSX.Element {
   const film = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, FILMS_COUNT);
   const isLoading = useAppSelector(getIsLoadedFilm);
+  const isErrorLoadFilm = useAppSelector(getErrorLoadFilm);
 
   const {id} = useParams();
   const dispatch = useAppDispatch();
@@ -36,6 +38,10 @@ function MoviePage(): JSX.Element {
 
   if (isLoading) {
     return <Loader/>;
+  }
+
+  if (isErrorLoadFilm) {
+    return <ServerError/>;
   }
 
   return (

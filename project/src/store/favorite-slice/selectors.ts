@@ -4,3 +4,5 @@ import {NameSpace} from '../../const';
 export const getFavorites = (state: State) => state[NameSpace.Favorite].favorites;
 
 export const getIsLoadedFavorites = (state: State) => state[NameSpace.Favorite].isDataLoaded;
+
+export const getErrorLoadFavorite = (state: State) => state[NameSpace.Favorite].isError;
